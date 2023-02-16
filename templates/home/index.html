@@ -13,10 +13,11 @@
             <figure class="card card-product-grid">
                 <div class="img-wrap"> <img src="{{ item.featured_image }}"> </div>
                 <figcaption class="info-wrap border-top">
-                    <a href="#" class="title">{{ item.product_name }} &amp;</a>
-                    <div class="price mt-2">{{item.price}}</div> <!-- price-wrap.// -->
-                    <div class="price mt-2">{{item.category_id.category_name}}</div> <!-- price-wrap.// -->
-                    <div class="price mt-2">{{item.category_id.category_name}}</div> <!-- price-wrap.// -->
+                    <a href="#" class="title">{{ item.product_name }} </a>
+                    {% comment %} <a href="#" class="title">{{ item.product_description }}</a> {% endcomment %}
+                    <div class="price mt-2">RS:{{item.price}}</div> <!-- price-wrap.// -->
+                    <div class="price mt-2">Location:Rabia City</div> <!-- price-wrap.// -->
+                    
                 </figcaption>
             </figure> <!-- card // -->
         </div> <!-- col.// -->

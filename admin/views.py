@@ -38,8 +38,33 @@ def ViewAllCategories(request):
     context = {"categories":Category.objects.all()}
     return render(request,'admin/view-categories.html',context)
 
+def EditCategory(request, id):
+    category = Category.objects.get(id = id)
+  
+    context = {'category':category} 
+
+    return render(request,'admin/update-category.html',context)
+
+def UpdateCategory(request):
+
+     if request.method == "POST":
+
+        id       = request.POST.get('id') 
+        title       = request.POST.get('name')
+       
+        category =  Category.objects.get(id = id)
+       
+        category.category_name = title 
+        category.save()
+       
+        messages.success(request, "Category Updated Successfully.")
+        return redirect('/admin/view-all-categories')
+
+
+
+
 def ChangeCategoryStatus(request,id):
-    category = Category.objects.geft(id=id)
+    category = Category.objects.get(id=id)
 
     if(category.status == 1):
         category.status = 0
@@ -51,6 +76,19 @@ def ChangeCategoryStatus(request,id):
     messages.success(request , "Category status updated Successfully.")
     return redirect('/admin/view-all-categories')
 
+def DeleteCategory(request):
+
+    if request.method == 'POST':
+
+        id = request.POST.get('category_id')
+
+        Category.objects.filter(id=id).delete()
+        
+        messages.success(request , "Category Deleted Successfully.")
+        return redirect('/admin/view-all-categories')
+
+
+
 def AddProduct(request):
     
     if request.method == "POST":
@@ -60,7 +98,6 @@ def AddProduct(request):
         file = fss.save(upload.name, upload)
         file_url = fss.url(file)
 
-
         title       = request.POST.get('title')
         price       = request.POST.get('price')
         description = request.POST.get('description')
@@ -69,9 +106,6 @@ def AddProduct(request):
 
         category =  Category.objects.get(id = categori_id)
         user     =  User.objects.get(id = user_id)
-
- 
-
 
 
         product = Product()
@@ -111,6 +145,55 @@ def ChangeProductStatus(request, id):
     messages.success(request, "Products status updated Successfully.")
     return redirect('/admin/view-products')
 
+def EditProduct(request, id):
+
+    product = Product.objects.get(id = id)
+  
+    categories = Category.objects.all()
+
+    context = {'product':product,
+                'categories':categories
+            } 
+
+    return render(request,'admin/update-product.html',context)
+
+
+
+def DeleteProduct(request):
+
+    if request.method == 'POST':
+
+        id = request.POST.get('product_id')
+
+        Product.objects.filter(id=id).delete()
+        messages.success(request, "Product deleted Successfully.")
+        return redirect('/admin/view-products')
+def UpdateProduct(request):
+     if request.method == "POST":
+
+    
+        id       = request.POST.get('id')
+        
+        title       = request.POST.get('title')
+
+        price       = request.POST.get('price')
+        description = request.POST.get('description')
+        categori_id       = request.POST.get('categori_id')
+       
+        category =  Category.objects.get(id = categori_id)
+       
+
+        product = Product.objects.get(id= id)
+
+        product.product_name        = title
+        product.price               = price
+        product.product_description = description
+        product.category_id         = category
+       
+        product.save()
+       
+        messages.success(request, "Products Updated Successfully.")
+        return redirect('/admin/view-products')
 
 
 @login_required

@@ -3,6 +3,8 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
+from django.core.files.storage import FileSystemStorage
+from UserProfile.models import Profile 
 
 # Create your views here.
 
@@ -45,8 +47,17 @@ def register(request):
         last_name = request.POST.get('last_name')
         email = request.POST.get('email')
         password = request.POST.get('password')
+        
+        upload = request.FILES['profile']
+        fss = FileSystemStorage()
+        file = fss.save(upload.name, upload)
+        file_url = fss.url(file)
 
         user_obj = User.objects.filter(username=email).exists()
+
+
+
+    
             
         if user_obj:
             messages.warning(request,'Email already Taken')
@@ -55,28 +66,36 @@ def register(request):
         user_obj = User.objects.create(first_name = first_name, last_name = last_name, email = email, username = email)
         user_obj.set_password(password)
         user_obj.save()
-        messages.warning(request,'Email has been sent on your email')
-        return render(request,'accounts/register.html')
+
+        obj = User.objects.latest('id')
+        
+        profile = Profile()
+        profile.profile_image = file_url
+        profile.user = obj
+        profile.save()
+
+        messages.warning(request,'Your account created successfully')
+        return redirect('/accounts/login')
        
     return render(request,'accounts/register.html')
 
-def user_register(request):
-        if request.method == "POST":
-            first_name = request.POST.get('first_name')
-            last_name = request.POST.get('last_name')
-            email = request.POST.get('email')
-            password = request.POST.get('password')
+# def user_register(request):
+#         if request.method == "POST":
+#             first_name = request.POST.get('first_name')
+#             last_name = request.POST.get('last_name')
+#             email = request.POST.get('email')
+#             password = request.POST.get('password')
 
-            user_obj = User.objects.filter(username=email).exists()
+#             user_obj = User.objects.filter(username=email).exists()
             
-            if user_obj:
-                messages.warning(request,'Email already Taken')
-                return HttpResponseRedirect(request.path_info)
+#             if user_obj:
+#                 messages.warning(request,'Email already Taken')
+#                 return HttpResponseRedirect(request.path_info)
 
-            user_obj = User.objects.create(first_name = first_name, last_name = last_name, email = email, username = email)
-            user_obj.set_password(password)
-            user_obj.save()
-            messages.warning(request,'Email has been sent on your email')
-            return HttpResponseRedirect(request.path_info)
+#             user_obj = User.objects.create(first_name = first_name, last_name = last_name, email = email, username = email)
+#             user_obj.set_password(password)
+#             user_obj.save()
+#             messages.warning(request,'Email has been sent on your email')
+#             return HttpResponseRedirect(request.path_info)
         
-        return render(request,'accounts/register.html')
+#         return render(request,'accounts/register.html')

@@ -4,6 +4,7 @@ from django.utils.text import slugify
 from django.contrib.auth.models import User
 
 
+
 class Category(models.Model):
     category_name  =  models.CharField(max_length=100)
     status           =  models.IntegerField(default=1)
@@ -32,4 +33,3 @@ class ProductImage(models.Model):
     updated_at = models.DateTimeField(auto_now_add=True)
 
 
- 
