@@ -1,0 +1,66 @@
+{% extends 'admin/layouts.html' %} 
+
+{% block content %}
+    
+    <main id="main" class="main">
+        <div class="pagetitle">
+          <h1>Form Elements</h1>
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item">Forms</li>
+              <li class="breadcrumb-item active">Elements</li>
+            </ol>
+          </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section">
+          <div class="row justify-content-center">
+            <div class="col-lg-9">
+
+
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title text-center fw-bold "><h3 class="text-center fw-bold pb-5">Update Blog</h3></h5>
+                  <form method="post" action="/admin/update-blog" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label"></label>
+                      <div class="col-sm-10">
+                        <label class="col-sm-2 col-form-label">Blog Title</label>
+                        <div class="form-floating mb-3">
+
+                          <input type="text" name="title" class="form-control" value="{{ blog.blog_title }}" id="floatingInput" placeholder="name@example.com">
+                          <input type="hidden" name="id" value="{{ blog.id }}" class="form-control" id="floatingInput" placeholder="name@example.com">
+                          <label for="floatingInput">blog title</label>
+                        </div>
+
+                       
+          
+                        <label class="col-sm-2 col-form-label">Blog Description</label>
+                        <div class="form-floating mb-3">
+                          <textarea class="form-control"  name="description" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px;">{{ blog.blog_description }}</textarea>
+                          <label for="floatingTextarea">Post Description</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                          <input type="file" name="image" class="form-control p-3" id="floatingInput" placeholder="name@example.com">
+                        </div>
+
+                        <div class="form-floating mb-3 text-center">
+                          <button type="submit" class="btn btn-success">Upload Blog</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form><!-- End General Form Elements -->
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+      </main><!-- End #main -->
+
+{% endblock  %}
