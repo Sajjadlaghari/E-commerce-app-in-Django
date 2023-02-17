@@ -10,6 +10,7 @@
 
         {% for item in products  %}
         <div class="col-md-3">
+            <a href="/product/{{ item.id }}">
             <figure class="card card-product-grid">
                 <div class="img-wrap"> <img src="{{ item.featured_image }}"> </div>
                 <figcaption class="info-wrap border-top">
@@ -20,7 +21,9 @@
                     
                 </figcaption>
             </figure> <!-- card // -->
+        </a>
         </div> <!-- col.// -->
+
 
         {% endfor %} 
         {% comment %} <div class="col-md-3">

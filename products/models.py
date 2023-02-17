@@ -15,8 +15,8 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
+    user_id                = models.ForeignKey(User, on_delete=models.CASCADE)
+    category_id            = models.ForeignKey(Category, on_delete=models.CASCADE)
     product_name           = models.CharField(max_length=100)
     price                  =  models.IntegerField()
     product_description    = models.TextField()
@@ -27,8 +27,8 @@ class Product(models.Model):
 
 
 class ProductImage(models.Model):
-    Product = models.ForeignKey(Product,on_delete=models.CASCADE, related_name="product_images")
-    image   = models.ImageField(upload_to="product")
+    Product    = models.ForeignKey(Product,on_delete=models.CASCADE, related_name="product_images")
+    image      = models.ImageField(upload_to="product")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 

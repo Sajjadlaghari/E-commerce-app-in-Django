@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.urls import path
-from home import views
-
+from products import views
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('',views.index)
+    path('<id>',views.ProductDetailed, name="product-detail"),
+
 ]

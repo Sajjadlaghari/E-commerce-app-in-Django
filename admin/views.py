@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import  User
 from django.contrib import messages
-from  products.models import Category, Product
+from  products.models import Category, Product,ProductImage
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import logout
 
@@ -60,9 +60,6 @@ def UpdateCategory(request):
         messages.success(request, "Category Updated Successfully.")
         return redirect('/admin/view-all-categories')
 
-
-
-
 def ChangeCategoryStatus(request,id):
     category = Category.objects.get(id=id)
 
@@ -87,11 +84,11 @@ def DeleteCategory(request):
         messages.success(request , "Category Deleted Successfully.")
         return redirect('/admin/view-all-categories')
 
-
-
 def AddProduct(request):
     
     if request.method == "POST":
+
+      
 
         upload = request.FILES['image']
         fss = FileSystemStorage()
@@ -107,7 +104,6 @@ def AddProduct(request):
         category =  Category.objects.get(id = categori_id)
         user     =  User.objects.get(id = user_id)
 
-
         product = Product()
 
         product.product_name        = title
@@ -118,6 +114,25 @@ def AddProduct(request):
         product.featured_image      = file_url
     
         product.save()
+
+        obj = Product.objects.latest('id')
+
+        images = request.FILES.getlist('images')
+
+        for image in images:
+           fss = FileSystemStorage()
+           file = fss.save(image.name, image)
+           file_url = fss.url(file)
+
+           productImage = ProductImage()
+
+           productImage.Product = obj
+           productImage.image = file_url
+
+           productImage.save()
+
+        # print('Product id is ',obj)
+        
         messages.success(request, "Products Added Successfully.")
         return redirect('/admin/view-products')
 
@@ -157,8 +172,6 @@ def EditProduct(request, id):
 
     return render(request,'admin/update-product.html',context)
 
-
-
 def DeleteProduct(request):
 
     if request.method == 'POST':
@@ -168,6 +181,7 @@ def DeleteProduct(request):
         Product.objects.filter(id=id).delete()
         messages.success(request, "Product deleted Successfully.")
         return redirect('/admin/view-products')
+
 def UpdateProduct(request):
      if request.method == "POST":
 
@@ -194,7 +208,6 @@ def UpdateProduct(request):
        
         messages.success(request, "Products Updated Successfully.")
         return redirect('/admin/view-products')
-
 
 @login_required
 def custom_logout(request):
