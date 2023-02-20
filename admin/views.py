@@ -88,8 +88,6 @@ def AddProduct(request):
     
     if request.method == "POST":
 
-      
-
         upload = request.FILES['image']
         fss = FileSystemStorage()
         file = fss.save(upload.name, upload)
@@ -122,12 +120,12 @@ def AddProduct(request):
         for image in images:
            fss = FileSystemStorage()
            file = fss.save(image.name, image)
-           file_url = fss.url(file)
+           attch = fss.url(file)
 
            productImage = ProductImage()
 
            productImage.Product = obj
-           productImage.image = file_url
+           productImage.image = attch
 
            productImage.save()
 

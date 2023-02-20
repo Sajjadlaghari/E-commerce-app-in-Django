@@ -17,12 +17,15 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from ecommerce import views
 
 urlpatterns = [
     path('admin/', include('admin.urls')),
     path('',include('home.urls')),
     path('product/',include('products.urls')),
-    path('accounts/',include('accounts.urls'))
+    path('accounts/',include('accounts.urls')),
+    path('add-to-cart',views.ProductAddToCart),
+    path('products-cart',views.ViewCartProducts)
 ]
 
 if settings.DEBUG:

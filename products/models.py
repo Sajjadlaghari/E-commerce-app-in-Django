@@ -32,4 +32,10 @@ class ProductImage(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
+class Cart(models.Model):
+    product  =  models.ForeignKey(Product, on_delete=models.CASCADE)
+    user     =  models.ForeignKey(User,on_delete=models.CASCADE) 
+    quantity =  models.FloatField(max_length=10)
+    price    =  models.FloatField(max_length=10)
+
 
