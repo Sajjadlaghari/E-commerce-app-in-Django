@@ -1,7 +1,7 @@
 # E-commerce-app-in-django
 
 ## Home Page
-![Screenshot 2023-02-17 235749](https://user-images.githubusercontent.com/68752819/219762609-b9109da3-428f-413a-976a-e9b4b03eb6ee.png)
+![image](https://user-images.githubusercontent.com/68752819/220196656-521548aa-6c1e-4cfd-ac1f-ad0dc36cf3d8.png)
 
 
 ##  Product Detailed Page
