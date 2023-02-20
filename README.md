@@ -8,6 +8,11 @@
 
 ![Screenshot 2023-02-17 235819](https://user-images.githubusercontent.com/68752819/219762860-0a86b209-ac36-4142-9cf5-660c0ce84bf6.png)
 
+##  Cart page
+
+![image](https://user-images.githubusercontent.com/68752819/220196525-ac2cff6d-2803-4048-8dcc-225e4c71f5cc.png)
+
+
 
 ## Login Page
 
