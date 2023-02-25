@@ -1,0 +1,19 @@
+<div style="    position: absolute;
+left: 41%;
+top: 38%;">
+    <!-- templates/home.html -->
+<h1 s>Pay From Your Card</h1>
+
+<!-- templates/home.html -->
+<form action="/success" method="post" style="margin-left: 63px;">  
+    <h2>Pay Rs. {{total}}</h2>
+     {% csrf_token %}  
+     <script src="https://checkout.stripe.com/checkout.js"
+          class="stripe-button"          
+          data-key="{{ key }}"          
+          data-description="A Django Charge"          
+          data-amount="{{ total }}"          
+          data-locale="auto">
+     </script>
+</form>
+</div>

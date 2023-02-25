@@ -140,3 +140,14 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+
+
+
+STRIPE_PUBLIC_KEY=''
+STRIPE_PRIVATE_KEY=''
+
+
+
+STRIPE_SECRET_KEY = ''
+STRIPE_PUBLISHABLE_KEY = ''

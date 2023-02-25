@@ -10,6 +10,9 @@ from UserProfile.models import Profile
 
 
 def login_page(request):
+    if request.user.is_authenticated:
+        return redirect("/")
+
     
     if request.method == "POST":
 
@@ -28,7 +31,10 @@ def login_page(request):
 
         if user_obj:
             login(request, user_obj)
-            return redirect('/admin/home')
+            if user_obj.is_superuser:
+                return redirect('/admin/home')
+            else:
+                return redirect('/')
 
         if  user_obj:
             messages.warning(request,'Your account not verified')
@@ -41,7 +47,8 @@ def login_page(request):
     return render(request,'accounts/login.html')
 
 def register(request):
-
+    if request.user.is_authenticated:
+        return redirect("/")
     if request.method == "POST":
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')

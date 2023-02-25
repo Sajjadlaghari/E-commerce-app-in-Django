@@ -5,6 +5,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('<id>',views.ProductDetailed, name="product-detail"),
-    path('AddToCart',views.ProductAddToCart, name="add-to-cart"),
+    path('AddToCart/<id>',views.ProductAddToCart, name="add-to-cart"),
 
 ]

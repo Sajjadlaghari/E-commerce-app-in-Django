@@ -25,7 +25,15 @@ urlpatterns = [
     path('product/',include('products.urls')),
     path('accounts/',include('accounts.urls')),
     path('add-to-cart',views.ProductAddToCart),
-    path('products-cart',views.ViewCartProducts)
+    path('products-cart',views.ViewCartProducts),
+    path('remove-product-cart/<id>',views.DeletProductFromCart),
+    path('book-order',views.BookOrdered),
+    path('confirm-ordered',views.ConfirmOrdered),
+    path('checkout', views.HomePageView.as_view(), name='home'),
+    path('success', views.success,name='success'),
+    # path('create-checkout-session', views.create_checkout_session, name='checkout'),
+    # path('success.html/', views.success,name='success'),
+    path('cancel.html/', views.cancel,name='cancel'),
 ]
 
 if settings.DEBUG:

@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Product
 from django.http import HttpResponseRedirect
 from products.models import Product
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 
@@ -18,9 +20,8 @@ def ProductDetailed(request,id):
    
     return render(request,'product/product-detailed.html',context)
 
+@login_required(login_url='login')
 def ProductAddToCart(request):
-
-    return  redirect('home')
 
      
     if request.method == "POST":
